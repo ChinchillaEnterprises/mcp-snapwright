@@ -180,6 +180,18 @@ export function createToolDefinitions() {
       },
     },
     {
+      name: "playwright_snapshot",
+      description: "Execute JavaScript in the browser console and store the result to a file on disk. Only returns success/failure.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          script: { type: "string", description: "JavaScript code to execute" },
+          path: { type: "string", description: "Absolute or relative path where the result will be saved on the OS" },
+        },
+        required: ["script", "path"],
+      },
+    },
+    {
       name: "playwright_console_logs",
       description: "Retrieve console logs from the browser with filtering options",
       inputSchema: {
@@ -411,6 +423,7 @@ export const BROWSER_TOOLS = [
   "playwright_select",
   "playwright_hover",
   "playwright_evaluate",
+  "playwright_snapshot",
   "playwright_close",
   "playwright_expect_response",
   "playwright_assert_response",

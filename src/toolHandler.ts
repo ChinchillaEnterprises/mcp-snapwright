@@ -41,7 +41,7 @@ import {
 import { GoBackTool, GoForwardTool } from './tools/browser/navigation.js';
 import { DragTool, PressKeyTool } from './tools/browser/interaction.js';
 import { SaveAsPdfTool } from './tools/browser/output.js';
-
+import { SnapshotTool } from './tools/browser/snapshot.js';
 
 // Global state
 let browser: Browser | undefined;
@@ -87,6 +87,7 @@ let goForwardTool: GoForwardTool;
 let dragTool: DragTool;
 let pressKeyTool: PressKeyTool;
 let saveAsPdfTool: SaveAsPdfTool;
+let snapshotTool: SnapshotTool;
 
 interface BrowserSettings {
   viewport?: {
@@ -295,6 +296,7 @@ function initializeTools(server: any) {
   if (!dragTool) dragTool = new DragTool(server);
   if (!pressKeyTool) pressKeyTool = new PressKeyTool(server);
   if (!saveAsPdfTool) saveAsPdfTool = new SaveAsPdfTool(server);
+  if (!snapshotTool) snapshotTool = new SnapshotTool(server);
 }
 
 /**
@@ -490,6 +492,8 @@ export async function handleToolCall(
         return await pressKeyTool.execute(args, context);
       case "playwright_save_as_pdf":
         return await saveAsPdfTool.execute(args, context);
+      case "playwright_snapshot":
+        return await snapshotTool.execute(args, context);
       
       default:
         return {
